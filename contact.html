@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact — Ryan Kurtz</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg: #0a0a0a;
+            --card: rgba(255,255,255,0.03);
+            --accent: #ff2d85;
+            --light: #ffffff;
+            --glass-border: rgba(255,45,133,0.12);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Raleway', sans-serif; }
+        body { background: var(--bg); color: var(--light); min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 2rem; }
+
+        .card {
+            width: 100%;
+            max-width: 900px;
+            background: var(--card);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 2.5rem;
+            backdrop-filter: blur(12px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+        }
+
+    h1 { font-size: 2.4rem; margin-bottom: 0.5rem; background: linear-gradient(90deg, var(--accent), #ff79b0); -webkit-background-clip: text; background-clip: text; color: transparent; }
+        p.lead { color: rgba(255,255,255,0.9); margin-bottom: 1.25rem; }
+
+        .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+
+        .contact-info, .contact-form { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.04); padding: 1.25rem; border-radius: 12px; }
+
+        .info-item { display:flex; gap: .75rem; align-items: center; margin-bottom: .75rem; }
+        .info-item i { font-size: 1.25rem; color: var(--accent); }
+        .info-item span { font-size: 1rem; color: rgba(255,255,255,0.9); }
+
+        .form-group { display:flex; flex-direction:column; gap:.5rem; margin-bottom: .75rem; }
+        label { font-size: .9rem; color: rgba(255,255,255,0.85); }
+        input, textarea { background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.06); padding: .75rem; border-radius: 8px; color: var(--light); }
+        textarea { min-height: 140px; resize: vertical; }
+
+        .btn-row { display:flex; gap: .75rem; justify-content: flex-end; }
+    .btn { padding: .8rem 1.1rem; border-radius: 999px; border: none; cursor: pointer; font-weight: 700; background: linear-gradient(90deg, var(--accent), #ff79b0); color: white; }
+
+        .back { display:inline-block; margin-top: 1rem; color: rgba(255,255,255,0.8); text-decoration: none; }
+
+        @media (max-width: 768px) {
+            .contact-grid { grid-template-columns: 1fr; }
+            body { padding: 1rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>Contact</h1>
+        <p class="lead">I'd love to hear from you. Use the form to send a message or use the quick links on the right.</p>
+        <div class="contact-grid">
+            <div class="contact-form">
+                <form id="contactForm" onsubmit="submitForm(event)">
+                    <div class="form-group">
+                        <label for="name">Your Name</label>
+                        <input id="name" name="name" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input id="email" name="email" type="email" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" required></textarea>
+                    </div>
+                    <div class="btn-row">
+                        <button class="btn" type="submit">Send Message</button>
+                    </div>
+                </form>
+                <a class="back" href="home page.html">← Back to Home</a>
+            </div>
+            <div class="contact-info">
+                <div class="info-item"><i class="fas fa-map-marker-alt"></i><span>1821 E 6th Street</span></div>
+                <div class="info-item"><i class="fas fa-map-marker-alt"></i><span>Duluth, Minnesota 55812</span></div>
+                <div class="info-item"><i class="fas fa-phone"></i><span>(952)-687-1139</span></div>
+                <div class="info-item"><i class="fas fa-envelope"></i><span><a href="mailto:Ryankurtz098@gmail.com" style="color:inherit; text-decoration:none">Ryankurtz098@gmail.com</a></span></div>
+
+                <hr style="border:none; border-top:1px solid rgba(255,255,255,0.04); margin:12px 0;" />
+                <p style="color:rgba(255,255,255,0.8);">Prefer a quick link? Find me on:</p>
+                <div style="display:flex; gap:.75rem; margin-top:.75rem;">
+                    <a href="https://www.linkedin.com/in/ryan-kurtz-2a72b6357/" target="_blank" rel="noopener noreferrer" style="color:var(--accent); text-decoration:none; font-weight:700;">LinkedIn</a>
+                    <a href="https://www.instagram.com/ryan.kurtz_/" target="_blank" rel="noopener noreferrer" style="color:var(--accent); text-decoration:none; font-weight:700;">Instagram</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function submitForm(e) {
+            e.preventDefault();
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const message = document.getElementById('message').value;
+
+            // For this static site we'll just show a simple success state.
+            alert('Thanks, ' + (name || 'there') + '! Message received.');
+            document.getElementById('contactForm').reset();
+        }
+    </script>
+</body>
+</html>

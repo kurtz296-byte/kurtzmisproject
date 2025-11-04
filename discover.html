@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Discover — Ryan Kurtz</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root{
+            --bg:#0a0a0a;
+            --card: rgba(255,255,255,0.03);
+            --accent:#ff6a00; /* orange accent */
+            --muted: rgba(255,255,255,0.8);
+        }
+        *{box-sizing:border-box;margin:0;padding:0;font-family:'Raleway',sans-serif}
+        body{background:var(--bg);color:#fff;min-height:100vh;padding:2rem;display:flex;align-items:center;justify-content:center}
+    .card{width:100%;max-width:1000px;background:var(--card);border:1px solid rgba(255,106,0,0.12);border-radius:14px;padding:2.5rem;backdrop-filter:blur(12px)}
+    h1{font-size:2.25rem;margin-bottom:0.5rem;background:linear-gradient(90deg,var(--accent),#ff9a4d);-webkit-background-clip:text;background-clip:text;color:transparent}
+        p.lead{color:var(--muted);margin-bottom:1rem}
+        .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:1rem}
+        .tile{background:rgba(255,255,255,0.02);padding:1rem;border-radius:10px;border:1px solid rgba(255,255,255,0.04)}
+        .back{display:inline-block;margin-top:1rem;color:rgba(255,255,255,0.8);text-decoration:none}
+        @media(max-width:900px){.grid{grid-template-columns:1fr}}
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>Discover</h1>
+    <p class="lead">A place to highlight projects, favorite places, and things I love to explore.</p>
+    <p class="lead">I chose to come to UMD for the culture, the beautiful scenery, their very good business school, and for my friends.</p>
+        <div class="grid">
+            <div class="tile">
+                <h3>Projects</h3>
+                <p class="muted">Short summaries of web projects and code experiments.</p>
+            </div>
+            <div class="tile">
+                <h3>Local Favorites</h3>
+                <p class="muted">Best coffee shops, trails, and spots around Duluth.</p>
+            </div>
+            <div class="tile">
+                <h3>Playlists</h3>
+                <p class="muted">Music I listen to while coding, working out, or on road trips.</p>
+            </div>
+        </div>
+        <a class="back" href="home page.html">← Back to Home</a>
+    </div>
+</body>
+</html>
