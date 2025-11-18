@@ -94,6 +94,49 @@
             line-height: 1.6;
         }
 
+        /* Top-right profile photo */
+        .top-photo {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            width: 140px;
+            height: 140px;
+            border-radius: 12px;
+            object-fit: cover;
+            border: 3px solid rgba(255,255,255,0.06);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+            z-index: 4; /* above container but below modals */
+        }
+
+        @media (max-width: 900px) {
+            .top-photo { display: none; }
+        }
+
+        /* Top-left YouTube link (small, non-intrusive) */
+        .top-left-link {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            z-index: 4;
+            display: inline-flex;
+            align-items: center;
+            gap: .5rem;
+            padding: .4rem .7rem;
+            border-radius: 999px;
+            border: 2px solid rgba(255,255,255,0.06);
+            background: rgba(0,0,0,0.25);
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 700;
+            backdrop-filter: blur(6px);
+        }
+
+        .top-left-link i { color: #ff0000; font-size: 1.05rem; }
+
+        @media (max-width: 700px) {
+            .top-left-link { display: none; }
+        }
+
         .background {
             position: fixed;
             top: 0;
@@ -930,6 +973,11 @@
     <div class="background"></div>
     <div class="decoration decoration-1"></div>
     <div class="decoration decoration-2"></div>
+    <img src="media/ryan1.jpg" alt="Ryan Kurtz" class="top-photo" />
+    <a class="top-left-link" href="https://youtube.com/shorts/QeMRGKQq6xQ" target="_blank" rel="noopener noreferrer">
+        <i class="fab fa-youtube"></i>
+        Watch
+    </a>
     
     <div class="container">
         <div class="content">
