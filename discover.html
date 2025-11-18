@@ -17,6 +17,33 @@
         }
         *{box-sizing:border-box;margin:0;padding:0;font-family:'Raleway',sans-serif}
         body{background:var(--bg);color:#fff;min-height:100vh;padding:2rem;display:flex;align-items:center;justify-content:center}
+
+        /* Top-right discovery photo (non-intrusive) */
+        .discover-top-photo {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            width: 160px;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 10px;
+            border: 3px solid rgba(255,255,255,0.06);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+            z-index: 4;
+        }
+
+        @media (max-width: 900px) {
+            .discover-top-photo { display: none; }
+        }
+        
+        /* Lightbox overlay styles */
+        .lightbox-overlay { position: fixed; inset: 0; display: none; align-items: center; justify-content: center; background: rgba(0,0,0,0.92); z-index: 2000; }
+        .lightbox-overlay.active { display: flex; }
+        .lightbox-img { max-width: 95%; max-height: 92%; box-shadow: 0 30px 80px rgba(0,0,0,0.8); border-radius: 6px; }
+        .lightbox-close, .lightbox-prev, .lightbox-next { position: absolute; background: rgba(0,0,0,0.4); color: #fff; border: none; padding: .6rem .9rem; border-radius: 6px; cursor: pointer; backdrop-filter: blur(6px); }
+        .lightbox-close { top: 20px; right: 24px; font-size: 1.1rem; }
+        .lightbox-prev { left: 24px; top: 50%; transform: translateY(-50%); font-size: 1.2rem; }
+        .lightbox-next { right: 24px; top: 50%; transform: translateY(-50%); font-size: 1.2rem; }
         /* Top-left YouTube link (small, non-intrusive) */
         .top-left-link {
             position: absolute;
@@ -41,6 +68,65 @@
         @media (max-width: 700px) {
             .top-left-link { display: none; }
         }
+
+        /* Home pill next to the YouTube pill */
+        .top-left-home {
+            position: absolute;
+            top: 1rem;
+            left: 6.5rem;
+            z-index: 4;
+            display: inline-flex;
+            align-items: center;
+            gap: .4rem;
+            padding: .4rem .7rem;
+            border-radius: 999px;
+            border: 2px solid rgba(255,255,255,0.06);
+            background: rgba(0,0,0,0.25);
+            color: var(--muted);
+            text-decoration: none;
+            font-weight: 700;
+            backdrop-filter: blur(6px);
+        }
+
+        @media (max-width: 700px) {
+            .top-left-home { display: none; }
+        }
+        
+        /* Bottom-left discovery photo (non-intrusive and visible) */
+        .discover-bottom-photo {
+            position: absolute;
+            bottom: 1.5rem;
+            left: 1.5rem;
+            width: 240px;
+            height: 140px;
+            object-fit: cover;
+            border-radius: 12px;
+            border: 3px solid rgba(255,255,255,0.06);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.65);
+            z-index: 4;
+        }
+
+        @media (max-width: 900px) {
+            .discover-bottom-photo { width: 160px; height: 100px; left: 0.9rem; bottom: 0.9rem; }
+        }
+        
+        /* Bottom-right discovery photo (non-intrusive) */
+        .discover-bottom-right-photo {
+            position: absolute;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            width: 240px;
+            height: 140px;
+            object-fit: cover;
+            border-radius: 12px;
+            border: 3px solid rgba(255,255,255,0.06);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.65);
+            z-index: 4;
+        }
+
+        @media (max-width: 900px) {
+            .discover-bottom-right-photo { width: 160px; height: 100px; right: 0.9rem; bottom: 0.9rem; }
+        }
     .card{width:100%;max-width:1000px;background:var(--card);border:1px solid rgba(255,106,0,0.12);border-radius:14px;padding:2.5rem;backdrop-filter:blur(12px)}
     h1{font-size:2.25rem;margin-bottom:0.5rem;background:linear-gradient(90deg,var(--accent),#ff9a4d);-webkit-background-clip:text;background-clip:text;color:transparent}
         p.lead{color:var(--muted);margin-bottom:1rem}
@@ -56,11 +142,15 @@
         Watch
     </a>
 
+    <a class="top-left-home" href="home page.html">Home</a>
+
+    <img src="media/hardview.jpg" alt="Hard View" class="discover-top-photo gallery-img" data-index="0" />
+
     <div class="card">
         <h1>Discover</h1>
     <p class="lead">A place to highlight projects, favorite places, and things I love to explore.</p>
     <p class="lead">I chose to come to UMD for the culture, the beautiful scenery, their very good business school, and for my friends.</p>
-        <div class="grid">
+    <div class="grid">
             <div class="tile">
                 <h3>Projects</h3>
                 <p class="muted">Short summaries of web projects and code experiments.</p>
@@ -76,5 +166,61 @@
         </div>
         <a class="back" href="home page.html">← Back to Home</a>
     </div>
+    <img src="media/northernlights.jpg" alt="Northern Lights" class="discover-bottom-photo gallery-img" data-index="1" />
+    <img src="media/sunset.jpg" alt="Sunset" class="discover-bottom-right-photo gallery-img" data-index="2" />
+    
+    <!-- Lightbox overlay -->
+    <div id="lightboxOverlay" class="lightbox-overlay" aria-hidden="true">
+        <button class="lightbox-close" aria-label="Close">✕</button>
+        <button class="lightbox-prev" aria-label="Previous">◀</button>
+        <img src="" alt="" class="lightbox-img" />
+        <button class="lightbox-next" aria-label="Next">▶</button>
+    </div>
+
+    <script>
+        (function(){
+            const imgs = Array.from(document.querySelectorAll('.gallery-img'));
+            const overlay = document.getElementById('lightboxOverlay');
+            const overlayImg = overlay.querySelector('.lightbox-img');
+            const btnClose = overlay.querySelector('.lightbox-close');
+            const btnNext = overlay.querySelector('.lightbox-next');
+            const btnPrev = overlay.querySelector('.lightbox-prev');
+            let current = 0;
+
+            function show(index){
+                current = (index + imgs.length) % imgs.length;
+                overlayImg.src = imgs[current].src;
+                overlayImg.alt = imgs[current].alt || '';
+                overlay.classList.add('active');
+                overlay.setAttribute('aria-hidden','false');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function hide(){
+                overlay.classList.remove('active');
+                overlay.setAttribute('aria-hidden','true');
+                overlayImg.src = '';
+                document.body.style.overflow = '';
+            }
+
+            imgs.forEach((img, i) => {
+                img.style.cursor = 'zoom-in';
+                img.addEventListener('click', (e) => { e.preventDefault(); show(i); });
+            });
+
+            btnClose.addEventListener('click', hide);
+            overlay.addEventListener('click', (e) => { if(e.target === overlay) hide(); });
+            btnNext.addEventListener('click', (e) => { e.stopPropagation(); show(current+1); });
+            btnPrev.addEventListener('click', (e) => { e.stopPropagation(); show(current-1); });
+
+            document.addEventListener('keydown', (e) => {
+                if(overlay.classList.contains('active')){
+                    if(e.key === 'Escape') hide();
+                    if(e.key === 'ArrowRight') show(current+1);
+                    if(e.key === 'ArrowLeft') show(current-1);
+                }
+            });
+        })();
+    </script>
 </body>
 </html>
